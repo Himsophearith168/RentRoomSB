@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class TenantResponse {
     private Long id;
     private String tenantName;
-    private GenderStatus genderStatus;
+    private GenderStatus status;
     private Integer phoneNumber;
     private String idCard;
     private String address;
