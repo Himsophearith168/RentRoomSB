@@ -24,7 +24,9 @@ public class TenantModel {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private GenderStatus status;
+    @Column(nullable = false)
     private Integer phoneNumber;
+
     private String idCard;
     private String address;
     private LocalDateTime createdAt;
