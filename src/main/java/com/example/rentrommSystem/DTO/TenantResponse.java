@@ -14,6 +14,7 @@ public class TenantResponse {
     private GenderStatus status;
     private Integer phoneNumber;
     private String idCard;
+    private String idCardImage;
     private String address;
 
 }

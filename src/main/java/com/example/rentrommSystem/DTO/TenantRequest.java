@@ -1,11 +1,12 @@
 package com.example.rentrommSystem.DTO;
 
 import com.example.rentrommSystem.Model.GenderStatus;
-import com.example.rentrommSystem.Model.RoomStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +20,8 @@ public class TenantRequest {
     private Integer phoneNumber;
     @NotNull(message = "ID Card is Require")
     private String idCard;
+
+    private MultipartFile idCardImage;
 
     private String address;
 

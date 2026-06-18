@@ -28,6 +28,7 @@ public class TenantModel {
     private Integer phoneNumber;
 
     private String idCard;
+    private String idCardImage;
     private String address;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -20,17 +20,18 @@ public class TenantMapper {
                 .build();
 
     }
-    public TenantResponse  toResponse(TenantModel Entity) {
-        if (Entity == null) {
+    public TenantResponse toResponse(TenantModel tenant) {
+        if (tenant == null) {
             return null;
         }
         return new TenantResponse(
-                Entity.getId(),
-                Entity.getTenantName(),
-                Entity.getStatus(),
-                Entity.getPhoneNumber(),
-                Entity.getIdCard(),
-                Entity.getAddress()
+                tenant.getId(),
+                tenant.getTenantName(),
+                tenant.getStatus(),
+                tenant.getPhoneNumber(),
+                tenant.getIdCard(),
+                tenant.getIdCardImage(),
+                tenant.getAddress()
         );
     }
 }
