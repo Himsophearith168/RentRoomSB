@@ -29,6 +29,19 @@ public class RoomController {
         );
 
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse<RoomResponse>> getRoomById(@PathVariable Long id) {
+        RoomResponse roomResponseList = roomService.findById(id);
+        return ResponseEntity.ok(
+                APIResponse.<RoomResponse>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Get Room ID "+ id)
+                        .data(roomResponseList)
+                        .build()
+        );
+
+    }
     @PostMapping
     public ResponseEntity<APIResponse<RoomResponse>> createRoom(@RequestBody RoomRequest roomRequest) {
         RoomResponse roomResponse = roomService.createRoom(roomRequest);

@@ -23,6 +23,11 @@ public class RoomService {
                 .map(roomMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    public RoomResponse findById(Long id) {
+        RoomModel findByID = roomRepository.findById(id).orElseThrow(() -> new RuntimeException("Room not found with id: " + id));
+        return roomMapper.toResponse(findByID);
+    }
     public RoomResponse createRoom(RoomRequest roomRequest) {
         if (roomRepository.existsByRoomNumber(roomRequest.getRoomNumber())) {
             throw new DuplicateResourceException("Room number '" + roomRequest.getRoomNumber() + "' already exists!");
