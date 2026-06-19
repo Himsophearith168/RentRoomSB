@@ -25,7 +25,7 @@ public class TenantModel {
     @Column(nullable = false)
     private GenderStatus status;
     @Column(nullable = false)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     private String idCard;
     private String idCardImage;

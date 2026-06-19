@@ -12,7 +12,7 @@ public class TenantResponse {
     private Long id;
     private String tenantName;
     private GenderStatus status;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String idCard;
     private String idCardImage;
     private String address;

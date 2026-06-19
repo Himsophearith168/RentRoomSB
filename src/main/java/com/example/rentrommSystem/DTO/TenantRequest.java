@@ -17,7 +17,7 @@ public class TenantRequest {
     @NotNull(message = "Gender is Require")
     private GenderStatus status;
     @NotNull(message = "PhoneNumber is Require")
-    private Integer phoneNumber;
+    private String phoneNumber;
     @NotNull(message = "ID Card is Require")
     private String idCard;
 
