@@ -8,8 +8,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.util.stream.Collectors;
 
+import com.example.rentrommSystem.Exception.DuplicateResourceException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<APIResponse<Void>> handleDuplicateResourceException(DuplicateResourceException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                APIResponse.<Void>builder()
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message(e.getMessage())
+                        .build()
+        );
+    }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<APIResponse<Void>> handleRuntimeException(RuntimeException e) {

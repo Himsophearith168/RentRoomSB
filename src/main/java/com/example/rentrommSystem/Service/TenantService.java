@@ -5,6 +5,7 @@ import com.example.rentrommSystem.DTO.TenantResponse;
 import com.example.rentrommSystem.Mapper.TenantMapper;
 import com.example.rentrommSystem.Model.TenantModel;
 import com.example.rentrommSystem.Repository.TenantRepository;
+import com.example.rentrommSystem.Exception.DuplicateResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,6 +41,9 @@ public class TenantService {
     }
 
     public TenantResponse createTenant(TenantRequest tenantRequest) {
+        if (tenantRepository.existsByTenantName(tenantRequest.getTenantName())) {
+            throw new DuplicateResourceException("Tenant name '" + tenantRequest.getTenantName() + "' already exists!");
+        }
         TenantModel tenant = tenantMapper.toEntity(tenantRequest);
 
         if (tenantRequest.getIdCardImage() != null && !tenantRequest.getIdCardImage().isEmpty()) {
@@ -54,6 +58,11 @@ public class TenantService {
     public TenantResponse updateTenant(Long id, TenantRequest tenantRequest) {
         TenantModel existingTenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
+
+        if (!existingTenant.getTenantName().equals(tenantRequest.getTenantName()) &&
+            tenantRepository.existsByTenantName(tenantRequest.getTenantName())) {
+            throw new DuplicateResourceException("Tenant name '" + tenantRequest.getTenantName() + "' already exists!");
+        }
 
         existingTenant.setTenantName(tenantRequest.getTenantName());
         existingTenant.setStatus(tenantRequest.getStatus());

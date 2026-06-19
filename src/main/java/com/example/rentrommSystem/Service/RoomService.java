@@ -1,8 +1,11 @@
 package com.example.rentrommSystem.Service;
 
+import com.example.rentrommSystem.DTO.RoomRequest;
 import com.example.rentrommSystem.DTO.RoomResponse;
 import com.example.rentrommSystem.Mapper.RoomMapper;
+import com.example.rentrommSystem.Model.RoomModel;
 import com.example.rentrommSystem.Repository.RoomRepository;
+import com.example.rentrommSystem.Exception.DuplicateResourceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,13 @@ public class RoomService {
         return roomRepository.findAll().stream()
                 .map(roomMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+    public RoomResponse createRoom(RoomRequest roomRequest) {
+        if (roomRepository.existsByRoomNumber(roomRequest.getRoomNumber())) {
+            throw new DuplicateResourceException("Room number '" + roomRequest.getRoomNumber() + "' already exists!");
+        }
+        RoomModel room = roomMapper.toEntity(roomRequest);
+        RoomModel saveRoom = roomRepository.save(room) ;
+        return roomMapper.toResponse(saveRoom);
     }
 }

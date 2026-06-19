@@ -4,5 +4,5 @@ import com.example.rentrommSystem.Model.TenantModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TenantRepository extends JpaRepository<TenantModel,Long> {
-
+    boolean existsByTenantName(String tenantName);
 }
