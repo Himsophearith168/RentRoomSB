@@ -53,4 +53,29 @@ public class RoomController {
                         .build()
         );
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<APIResponse<RoomResponse>> updateRoom(
+            @PathVariable Long id,
+            @RequestBody RoomRequest roomRequest) {
+        RoomResponse roomResponse = roomService.updateRoom(id, roomRequest);
+        return ResponseEntity.ok(
+                APIResponse.<RoomResponse>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Room updated successfully")
+                        .data(roomResponse)
+                        .build()
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse<RoomResponse>> deleteRoom(@PathVariable Long id) {
+        RoomResponse roomResponse = roomService.deleteRoom(id);
+        return ResponseEntity.ok(
+                APIResponse.<RoomResponse>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("You Delete Room Succesfully")
+                        .build()
+        );
+    }
 }

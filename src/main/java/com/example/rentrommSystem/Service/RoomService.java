@@ -36,4 +36,29 @@ public class RoomService {
         RoomModel saveRoom = roomRepository.save(room) ;
         return roomMapper.toResponse(saveRoom);
     }
+
+    public RoomResponse updateRoom(Long id, RoomRequest roomRequest) {
+        RoomModel existingRoom = roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Room not found with id: " + id));
+
+        if (!existingRoom.getRoomNumber().equals(roomRequest.getRoomNumber()) &&
+            roomRepository.existsByRoomNumber(roomRequest.getRoomNumber())) {
+            throw new DuplicateResourceException("Room number '" + roomRequest.getRoomNumber() + "' already exists!");
+        }
+
+        existingRoom.setRoomNumber(roomRequest.getRoomNumber());
+        existingRoom.setDescription(roomRequest.getDescription());
+        existingRoom.setPrice(roomRequest.getPrice());
+        existingRoom.setStatus(roomRequest.getStatus());
+
+        RoomModel updatedRoom = roomRepository.save(existingRoom);
+        return roomMapper.toResponse(updatedRoom);
+    }
+
+    public RoomResponse deleteRoom(Long id) {
+        RoomModel roomExists = roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Room not found with id: " + id));
+        roomRepository.delete(roomExists);
+        return roomMapper.toResponse(roomExists);
+    }
 }
