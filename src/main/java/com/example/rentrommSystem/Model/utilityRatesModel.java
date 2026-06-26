@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "utilityRates")
+@Table(name = "utility_rates")
 @Setter
 @Getter
 @AllArgsConstructor

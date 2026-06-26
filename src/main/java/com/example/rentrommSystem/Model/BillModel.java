@@ -6,6 +6,8 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bills")
@@ -38,13 +40,19 @@ public class BillModel {
     @Column(precision = 10, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = BillStatusConverter.class)
     @Column(nullable = false)
     private BillStatus status;
 
     private LocalDate dueDate;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private List<BillDetailModel> billDetails = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
